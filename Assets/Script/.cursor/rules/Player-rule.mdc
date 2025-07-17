@@ -1,0 +1,76 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# カードゲーム開発ルール
+
+## プレイヤー識別システム
+
+### Player1用の識別子
+- **SendBattleResult1**: Player1用のバトル結果送信メソッド
+- **result1**: Player1用のバトル結果データ
+- **Win1**: Player1の最終勝利メッセージ
+- **Lose1**: Player1の最終敗北メッセージ
+- **属性_Point_1**: Player1用の属性とポイント情報
+
+### Player2用の識別子
+- **SendBattleResult2**: Player2用のバトル結果送信メソッド
+- **result2**: Player2用のバトル結果データ
+- **Win2**: Player2の最終勝利メッセージ
+- **Lose2**: Player2の最終敗北メッセージ
+- **属性_Point_2**: Player2用の属性とポイント情報
+
+## ゲームルール
+
+### カードシステム
+- **属性**: Fire（火）、Water（水）、Grass（草）の3種類
+- **パワー**: 1-9の数字
+- **カード形式**: "属性名+数字"（例：Fire4、Water3、Grass7）
+
+### 勝敗判定ルール
+- **火 > 草**: Fire属性はGrass属性に勝つ
+- **水 > 火**: Water属性はFire属性に勝つ
+- **草 > 水**: Grass属性はWater属性に勝つ
+- **同属性**: パワー（数字）が大きい方が勝利、同パワーは引き分け
+
+### スコアシステム
+- 1回のバトル勝利で1ポイント獲得
+- 3ポイント先取でゲーム勝利
+- 引き分けの場合はポイント変動なし
+
+### メッセージ送信フロー
+1. **SendBattleResult1/2**: 各プレイヤー用のバトル結果を送信
+2. **result1/2**: 属性とポイント情報を含む結果データ
+3. **属性_Point_1/2**: 勝者の属性とポイント情報
+4. **Win1/Win2**: 最終勝利者のメッセージ
+5. **Lose1/Lose2**: 最終敗者のメッセージ
+
+## 技術仕様
+
+### RPCメソッド
+- `SendBattleResult1(string result1)`: Player1用バトル結果
+- `SendBattleResult2(string result2)`: Player2用バトル結果
+- `ReceiveBattleResult(string message)`: 勝利敗北メッセージ
+- `BattleFinish(bool decided, string winner)`: バトル終了通知
+
+### データ形式
+- **result1/2**: "属性_Point_1/2,勝者名"
+- **winMessage**: "Win1" または "Win2"
+- **loseMessage**: "Lose1" または "Lose2"
+
+## 開発ガイドライン
+
+### コード作成時の注意点
+1. Player1とPlayer2の識別子を正確に使用する
+2. 属性相性ルールを正しく実装する
+3. スコアシステムを適切に管理する
+4. RPCメソッドの命名規則を守る
+5. エラーハンドリングを実装する
+
+### デバッグ機能
+- キー入力によるテストカード送信
+- 詳細なログ出力
+- バトル演出のタイマー管理
+
+- スコア状態の監視 
