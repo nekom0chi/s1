@@ -1,9 +1,9 @@
 const cacheName = "adukibaxa-s1-1.0";
 const contentToCache = [
     "Build/WebGL_Build.loader.js",
-    "Build/WebGL_Build.framework.js.br",
-    "Build/WebGL_Build.data.br",
-    "Build/WebGL_Build.wasm.br",
+    "Build/WebGL_Build.framework.js",
+    "Build/WebGL_Build.data",
+    "Build/WebGL_Build.wasm",
     "TemplateData/style.css"
 
 ];
